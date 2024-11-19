@@ -1,0 +1,3 @@
+body > h1::after {
+    content: "Hello World from css!"
+}
