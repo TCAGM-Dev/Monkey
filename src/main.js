@@ -1,4 +1,4 @@
-const CLIENT_ID = 5961078402983709965
+const CLIENT_ID = "5961078402983709965"
 const SCOPES = ["openid", "profile", "universe-messaging-service:publish"]
 
 function getBrowserPreferredTheme() {
@@ -62,6 +62,10 @@ async function challengeFromVerifier(v) {
     return base64urlencode(hashed)
 }
 
+function stringifyFormData(data) {
+    return Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join("\n")
+}
+
 document.getElementById("loginbutton").addEventListener("click", async event => {
     const verifier = randomString(32)
     const state = randomString(32)
@@ -70,5 +74,5 @@ document.getElementById("loginbutton").addEventListener("click", async event => 
     window.localStorage.setItem("verifier", verifier)
     window.localStorage.setItem("state", state)
 
-    location.assign(`https://apis.roblox.com/oauth/v1/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent("localhost:5500/redirect")}&scope=${encodeURIComponent(SCOPES.join(" "))}&response_type=code&code_challenge=${challenge}&code_challenge_method=S256&state=${state}`)
+    location.assign(`https://apis.roblox.com/oauth/v1/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent("http://localhost:5500/redirect")}&scope=${encodeURIComponent(SCOPES.join(" "))}&response_type=code&code_challenge=${challenge}&code_challenge_method=S256&state=${state}`)
 })
